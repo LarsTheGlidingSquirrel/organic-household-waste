@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>Biomüll</title>
+
+		<link rel="stylesheet" type="text/css" href="style.css" media="screen"/>
+		<link rel="stylesheet" type="text/css" href="styleAllDisposalTypes.css" media="screen"/>
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Signika&display=swap" rel="stylesheet"> 
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+		
+		<!-- Defines a new custom element and registers it. -->
+		<script>
+			customElements.define('accordion-item', 
+				class extends HTMLElement {
+					constructor() {
+						super(); 
+
+						const template = document.getElementById('accordion-template');
+						this.attachShadow({mode: 'open'}).appendChild(
+							template.content.cloneNode(true)
+						);
+					}
+				}
+			);
+		</script>
+	</head>
+	<body>
+		<template id="accordion-template">
+			<div class="accordion">
+				<button class="accordion-title" onclick="ToggleOpen(this)">
+					<slot name="title">Failed to load accordion title!</slot>
+					<span style="color: white; padding-left: 5px">▼</span>
+				</button>
+				<div class="accordion-content accordion-hidden">
+				<!-- This was used to the accordion animating using GreenSocks. -->
+				<!-- <div class="accordion-content accordion-hidden" style="height: 0;"> -->
+					<slot name="content">Failed to load accordion content!</slot>
+				</div>
+			</div>
+
+			<script>
+				function ToggleOpen(element) {
+					let accordionContent = element.parentNode.querySelector(".accordion-content");
+					let isContentNowHidden = accordionContent.classList.toggle("accordion-hidden");
+
+					// SetHeight(accordionContent);
+				}
+
+				function SetHeight(accordionContent) {
+
+					if(accordionContent.classList.contains("accordion-hidden")) {
+						gsap.to(accordionContent, {duration: 0.3, height: 0});
+					}
+					else {
+						gsap.to(accordionContent, {duration: 0.3, height: accordionContent.scrollHeight});
+
+						// Adapt size of all parent accordion contents as well.
+						// @TODO Get this working. 
+						// let parentAccordionItem = closestPassShadow(accordionContent.parentNode, ".accordion-content");
+						// console.log(parentAccordionItem);
+						// if(parentAccordionItem == null) {
+
+						// 	return; 
+						// }
+
+						// SetHeight(parentAccordionContent); 
+					}
+				}
+
+				// Source: https://stackoverflow.com/questions/54520554/custom-element-getrootnode-closest-function-crossing-multiple-parent-shadowd
+				function closestPassShadow(node, selector) {
+
+					if (!node) {
+									return null;
+					}
+
+					if (node instanceof ShadowRoot) {
+									return this.closestPassShadow(node.host, selector);
+					}
+
+					if (node instanceof HTMLElement) {
+									if (node.matches(selector)) {
+													return node;
+									} else {
+													return this.closestPassShadow(node.parentNode, selector);
+									}
+					}
+
+					return this.closestPassShadow(node.parentNode, selector);
+				}
+			</script>
+
+			<style>
+				* {
+					box-sizing: inherit;
+					font-size: inherit;
+					margin: 0; 
+					padding: 0; 
+				}
+
+				button {
+					background-color: inherit;
+				} 
+
+				:host {
+					width: 100%;
+				}
+
+				.accordion {
+					width: 100%;
+					/* padding: 1rem;  */
+					background-color: rgb(185, 207, 175);
+					padding: 5px;
+				}
+
+				.accordion-title {
+					display: flex; 
+					flex-direction: row;
+					width: 100%;
+					text-align: left;
+					border-width: 0;
+					padding: 5px; 
+				}
+
+				.accordion-content {
+					background-color: #F8FFFB;
+					overflow: hidden;
+					margin: 0px;
+					padding: 10px;
+					/* height: auto; */
+					transition: margin 0.2s ease-in-out, padding 0.2s ease-in-out, opacity 0.7s ease-in;
+					overflow: hidden; 
+				}
+				.accordion-hidden {
+					height: 0; 
+					margin: 0px;
+					/* padding: 0px; */
+					opacity: 0;
+					transition: margin 0.2s ease-in-out, padding 0.2s ease-in-out, opacity 0.1s;
+				}
+			</style>
+		</template>
+
+		<div id="content">
+			<h1 style="text-align: center; margin-top: 30px;">Was passiert mit deinem Apfelbutzen im Bio-Müll?</h1>
+			<svg style="max-width: 5rem; margin: 15px;" class="graphic-element-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 106.43 136.28" version="1.1" id="svg8">
+				<defs id="defs2">
+					<rect x="54.27" y="38.26" width="115.89" height="18.88" id="rect900"/>
+					<rect x="284.73" y="43" width="68.05" height="17.65" id="rect894"/>
+				</defs>
+				<g id="layer4" style="display:inline;opacity:1" transform="translate(-257.9 -1.41)">
+					<path style="display:inline;opacity:1;mix-blend-mode:normal;fill:#925241;fill-opacity:1;stroke:none;stroke-width:.434263px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M280.68 54.54c-2.5 0-6.03.94-6.14-4.44-.1-5.38-4.51-81.05-4.51-81.05l-2.52-4.47-2.98-.83-1.06-13.2-.1-8.28 88.21-1.93 9.27-3.84s5.38.64 1.94 6.02-6.56 10.44-15.6 14.74c-.97 19.37-6.16 93.48-6.16 93.48s.65 3.8-3.33 3.8z" id="path2812-8" transform="translate(0 73.64)"/>
+					<path style="display:inline;opacity:1;mix-blend-mode:normal;fill:#7a4132;fill-opacity:1;stroke:none;stroke-width:.485458px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M257.9 27.07l.11-12.66 102.68.59-2.41 5.78s-66.09.83-74.56.92c-6.6.07-8.37 5.54-12.73 5.54-3.72 0-10.78-.15-13.09-.17z" id="path2814-1"/>
+					<path id="path2816-7" style="display:inline;opacity:1;mix-blend-mode:normal;fill:#925545;fill-opacity:1;stroke:none;stroke-width:.484445px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M284.67 1.41c-2.33.13-15.99 2.34-18.1 2.73-2.1.38-2.44 2.46-2.44 2.46l-.62 8.13 80.56-.01s10.03 2.25 15.02 3.48c5.77 1.43 7.5-10.43 1.45-10.96-2.07-.18-71.1-5.57-75.87-5.83zm-1.27 4.63c2.72-.4 2.88 4.26.13 4.63a817.2 817.2 0 0 1-13.1 1.69c-1.96.23-2.24-4.21 0-4.54 4.36-.35 8.58-1.2 12.97-1.78z"/>
+					<ellipse style="display:inline;opacity:1;mix-blend-mode:normal;fill:#363a41;fill-opacity:1;stroke:none;stroke-width:0;stroke-opacity:1" id="circle2818-0" cx="334.59" cy="122.3" rx="15.52" ry="15.4"/>
+					<ellipse style="display:inline;opacity:1;mix-blend-mode:normal;fill:#363a41;fill-opacity:1;stroke:none;stroke-width:0;stroke-opacity:1" id="circle2818-0-7" cx="357.38" cy="13.58" rx="2.16" ry="2.14"/>
+					<path style="fill:#fff0f0;fill-opacity:1;stroke:none;stroke-width:.103907;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="M259.57 25.7l.02-9.58 13.48.13-12.3 1.24z" id="path922"/>
+					<path style="fill:#fff;fill-opacity:1;stroke:none;stroke-width:.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="M264.55 13.9L265 7s.1-1.52 1.48-1.85c1.38-.33 17.86-2.75 17.86-2.75l26.28 1.74-26.33-.69-17.35 2.9s-.77.05-.83 1.1c-.07 1.05-1.56 6.44-1.56 6.44z" id="path924"/>
+					<path style="fill:#fff;fill-opacity:1;stroke:none;stroke-width:.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M320.46 123.22s.54-20.85 22.1-13.11c-21.06-5.75-22.1 13.1-22.1 13.1z" id="path926"/>
+					<path style="display:inline;fill:#fff;fill-opacity:1;stroke:none;stroke-width:.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M394.33 37.24c2.92.9 4.17-.6 4.1-3 1.39 2.96-1.85 4.98-4.1 3z" id="path928" transform="translate(-38.54 -21.48)"/>
+				</g>
+			</svg>
+			<div id="text-content" style="width: 100%;">
+				<p>Dein Apfelbutzen wird bei dir zuhause abgeholt zusammen mit dem restlichen Bio-Müll und zu einer <b>Biogasanlage</b> gebracht.</p>
+				<accordion-item>
+					<span slot="title">Was passiert beim Transport?</span>
+					<div slot="content">
+						<p>Der Mülltransporter fährt von Haus zu Haus und letztendlich zur Müllverbrennungsanlage. {Bei einer Runde legt er im Durchschnitt ??? km zurück.} Dabei stößt er CO2 & Feinstaub aus. Diese tragen zum Klimawandel und zur Luftverschmutzung bei.</p>
+						<p>Ein einziger Apfelbutzen wiegt zwar nicht viel, aber er ist auch nur ein Teil von durchschnittlich 187kg Restmüll {TODO: Wert für Bio-Müll} pro Person pro Jahr (im Jahr 2019)</p>
+						<p>Damit der Mülltransporter überhaupt existiert, muss er erstmal produziert werden. Bei der Produktion wird CO2 freigesetzt für die Gewinnung der vielfältigen Rohstoffe, die Verarbeitung zu Bauteilen und den weltweiten Transport. Genauso muss der Transporter irgendwann entsorgt werden, was ebenfalls einen Einflüss auf unsere Umwelt hat.</p>
+						<!-- <accordion-item>
+							<span slot="title">Zweitens</span>
+							<div slot="content">
+								<p>Ma eana fensdaln, des is schee Hemad i hob di liab heid a fescha Bua nimma? Ebba zua Leonhardifahrt nimma, obacht obandeln des wiad a Mordsgaudi a bravs nix scheans: Kummd Musi ham Almrausch ded nix nix Gwiass woass ma ned is a so a Schmarn koa. Pfenningguat hi hoam hob Biawambn Lewakaas nia need Schbozal i moan oiwei hob spernzaln: Sammawiedaguad scheans du dadst ma scho daugn sauba baddscher da, wui. Sepp wos i moan oiwei obandeln kimmt vui huift vui a geh barfuaßat, Trachtnhuat an obandln.</p>
+							</span>
+						</accordion-item> -->
+					</div>
+				</accordion-item>
+				<p>In der Biogasanlage werden zuerst Störstoffe wie z.B. Plastik oder "kompostierbare Müllbeutel" maschinell entfernt, denn sie können nicht zusammen mit dem Rest verwertet werden. <sup><a href="https://www.youtube.com/watch?v=DL5FfFUm3eE">Quelle</a></sup>
+				</p>
+
+				<accordion-item>
+					<span slot="title">Warum werden "kompostierbare Müllbeutel" nicht kompostiert?</span>
+					<div slot="content">
+						<p>
+							Diese Müllbeutel sind zwar theoretisch kompostierbar, allerdings dauert der Vorgang deutlich länger und hinterlässt Rückstände im Vergleich zum restlichen Biomüll. In den meisten Anlagen können diese kompostierbaren Müllbeutel nicht kompostiert werden. <sup><a href="https://www.awm-muenchen.de/verantwortung/kampagnen/biokampagne">Quelle</a></sup>
+						</p>
+
+						<accordion-item>
+							<span slot="title">Was kann ich statt Müllbeuteln verwenden?</span>
+							<div slot="content">
+								<p>
+									Der Bio-Müll kann, sofern er nicht zu feucht ist, in Zeitungspapier eingewickelt werden und so bis zur Tonne gebracht werden. 
+								</p>
+							</div>
+						</accordion-item>
+					</div>
+				</accordion-item>
+
+				<p> Dein Apfelbutzen wird zusammen mit dem restlichen Bio-Müll im sogenannten <b>Fermenter</b> vergoren. Dabei wird unter anderem Methan freigesetzt, welches als Bio-Gas genutzt wird. <sup><a href="https://www.youtube.com/watch?v=DL5FfFUm3eE">Quelle</a></sup></p>
+
+				<p>Das entstandene Bio-Gas wird entweder direkt genutzt zur Strom- und Wärmegewinnung oder aufbereitet und fließt in das Erdgasnetz. <sup><a href="https://www.youtube.com/watch?v=DL5FfFUm3eE">Quelle</a></sup></p>
+
+				<p>Die flüssigen Reste der Gärung werden weiter verarbeitet und als Dünger für die Landwirtschaft genutzt. <sup><a href="https://www.youtube.com/watch?v=DL5FfFUm3eE">Quelle</a></sup></p>
+
+				<p>Die festen Reste der Gärung, inklusive das was von deinem Apfelbutzen übrig geblieben ist, werden letztendlich kompostiert und ebenfalls für die Landwirtschaft genutzt. <sup><a href="https://www.youtube.com/watch?v=DL5FfFUm3eE">Quelle</a></sup></p>
+			</div>
+		</div>
+	</body>
+</html>

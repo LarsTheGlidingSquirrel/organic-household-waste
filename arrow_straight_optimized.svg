@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200mm" height="50mm" viewBox="0 0 200 50" version="1.1" id="svg902">
+    <defs id="defs896">
+        <marker style="overflow:visible" id="Tail" refX="0" refY="0" orient="auto">
+            <g transform="scale(-1.2)" id="g1515" style="stroke:#c7c7c7;stroke-opacity:1;fill:#c7c7c7;fill-opacity:1">
+                <path style="fill:#c7c7c7;fill-rule:evenodd;stroke:#c7c7c7;stroke-width:.8;stroke-linecap:round;stroke-opacity:1;fill-opacity:1" d="M-3.8-3.96L.54 0" id="path1503"/>
+                <path style="fill:#c7c7c7;fill-rule:evenodd;stroke:#c7c7c7;stroke-width:.8;stroke-linecap:round;stroke-opacity:1;fill-opacity:1" d="M-1.29-3.96L3.06 0" id="path1505"/>
+                <path style="fill:#c7c7c7;fill-rule:evenodd;stroke:#c7c7c7;stroke-width:.8;stroke-linecap:round;stroke-opacity:1;fill-opacity:1" d="M1.3-3.96L5.66 0" id="path1507"/>
+                <path style="fill:#c7c7c7;fill-rule:evenodd;stroke:#c7c7c7;stroke-width:.8;stroke-linecap:round;stroke-opacity:1;fill-opacity:1" d="M-3.8 4.18L.54.22" id="path1509"/>
+                <path style="fill:#c7c7c7;fill-rule:evenodd;stroke:#c7c7c7;stroke-width:.8;stroke-linecap:round;stroke-opacity:1;fill-opacity:1" d="M-1.29 4.18L3.06.22" id="path1511"/>
+                <path style="fill:#c7c7c7;fill-rule:evenodd;stroke:#c7c7c7;stroke-width:.8;stroke-linecap:round;stroke-opacity:1;fill-opacity:1" d="M1.3 4.18L5.66.22" id="path1513"/>
+            </g>
+        </marker>
+        <marker style="overflow:visible" id="Arrow2Lstart" refX="0" refY="0" orient="auto">
+            <path transform="translate(1.1) scale(1.1)" d="M8.72 4.03L-2.21.02 8.72-4a6.84 6.84 0 0 0 0 8.03z" style="fill-rule:evenodd;stroke-width:.625;stroke-linejoin:round;stroke:#b7b7b7;stroke-opacity:1;fill:#b7b7b7;fill-opacity:1" id="path1485"/>
+        </marker>
+        <marker style="overflow:visible" id="Arrow1Lstart" refX="0" refY="0" orient="auto">
+            <path transform="matrix(.8 0 0 .8 10 0)" style="fill-rule:evenodd;stroke:#b7b7b7;stroke-width:1pt;stroke-opacity:1;fill:#b7b7b7;fill-opacity:1" d="M0 0l5-5-17.5 5L5 5 0 0z" id="path1467"/>
+        </marker>
+    </defs>
+    <g id="layer1" style="opacity:.994">
+        <path style="fill:none;stroke:#c7c7c7;stroke-width:1.618;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4.854,1.618;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#Tail)" d="M100 36.88V2" id="path1465"/>
+    </g>
+</svg>
+

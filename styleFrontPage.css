@@ -1,0 +1,219 @@
+/* Box for all content, including header and footer. Centered top. Slightly flexible aspect ratio. */
+#content {
+	--aspect-ratio: calc(16/9);
+	--width-size: 50rem; /* On change: Manually set media query breakpoint to this value minus offset */
+	--height-size: calc(var(--width-size) / var(--aspect-ratio));
+	--offset: 4rem;
+	margin: auto; 
+	display: flex; 
+	flex-direction: column;
+	align-items: center;
+	width: clamp(calc(var(--width-size) - var(--offset)), 100%, calc(var(--width-size) + var(--offset))); 
+	height: clamp(calc(var(--height-size) - var(--offset)), 100%, calc(var(--height-size) + var(--offset)));
+}
+
+#header {
+	/* height: 6em; */
+	font-size: 1em;
+	width: 100%;
+	/* background-color: olive; */
+}
+
+#middle {
+	width: 100%;
+	min-height: 0;
+	/* background-color: #f0fff6ff; */
+	flex-grow: 1;
+	display: grid;
+	grid-template-rows: 0.6fr 0.4fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr;
+}
+
+.graphic-element {
+	height: 100%; 
+	width: 100%; 
+	overflow: hidden; 
+	display: flex; 
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	padding: 10px; 
+}
+
+.element-text {
+	text-align: center; 
+	margin: 0; 
+	font-size: 1.3rem;
+}
+
+.graphic-element-link {
+	justify-content: center;
+}
+
+.graphic-element a:hover {
+	background-color: white; 
+}
+
+.graphic-element-svg {
+	max-width: 90%;
+	max-height: 90%;
+	display: block; 
+	margin: auto; 
+}
+
+#footer {
+	height: 3em;
+	width: 100%;
+	/* background-color: seagreen; */
+}
+
+
+
+/* Switch to stacked layout */
+@media only screen and (max-width: 46rem) {
+	#content {
+		width: min(25rem, 100%); 
+		height: auto; 
+		/* background-color: blueviolet;  */
+	}
+	#footer {
+		/* background-color: blueviolet; */
+	}
+	#middle {
+		display: flex;
+		flex-direction: column;
+	}
+	.graphic-element {
+		width: 100%;
+		padding: 3rem 0;
+	}
+
+	.graphic-element-svg {
+		width: 70%;
+		height: auto; 
+	}
+
+	.arrow {
+		display: none;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+#apfelbutzen {
+	/* --element-size: 30%; 
+	width: var(--element-size); 
+	height: var(--element-size);  */
+	width: 30%; 
+	background-color: darkcyan;
+}
+
+.aspectRatio {
+	position: relative;
+	height: 0;
+	width: 100%;
+	padding-top: calc(100% / (var(--aspect-ratio)));
+	background-color: rgb(165, 51, 108);
+}
+
+.aspectratio > * {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.centerHorizontally {
+	position: relative; 
+	left: 50%; 
+	transform: translate(-50%, 0);
+}
+
+#fullpageLayout {
+	height: min(100%, 50em); 
+	display: flex; 
+	flex-direction: column;
+	align-items: center;
+}
+
+
+
+
+
+#centeredBox {
+	--centered-box-width: min(80vw, 300px);
+	width: var(--centered-box-width);
+	height: min(var(--centered-box-width), 100%);	
+}
+
+/* .centerBothAxis {
+	position: absolute; 
+	top: 50%;
+	left: 50%; 
+	transform: translate(-50%, -50%); 
+	background-color: darkviolet;
+} */
+
+#container {
+	--container-height: 200px; 
+	display: flex; 
+	height: var(--container-height);
+	width: clamp(100px, 100%, 1200px);
+	background-color: coral;
+	/* flex-wrap: wrap; */
+	justify-content: space-evenly;
+	position: relative;
+	top: 50%; 
+	left: 50%; 
+	transform: translate(-50%, -50%);
+}
+
+#container .item {
+	/* flex-grow: 1; */
+	width: var(--container-height);
+	height: 100%;
+	font-size: 2em;
+	overflow: hidden;
+}
+
+#restmuell {
+	background-color: blue;
+}
+
+#biomuell {
+	background-color: green;
+}
+
+#kompost {
+	background-color: yellow;
+}
+
+@media screen and (orientation: portrait) {
+	#container {
+		--element-size: 50vw; 
+		flex-direction: column;
+		width: 100%; 
+		height: 200vw; 
+		align-items: center;
+		justify-content: space-between;
+		position: static;
+		transform: translate(0, 0);
+	}
+
+	#container .item {
+		width: var(--element-size);
+		height: var(--element-size);
+	}
+}
+
+
+
