@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>Kompost</title>
+
+		<link rel="stylesheet" type="text/css" href="style.css" media="screen"/>
+		<link rel="stylesheet" type="text/css" href="styleAllDisposalTypes.css" media="screen"/>
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Signika&display=swap" rel="stylesheet"> 
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+		
+		<!-- Defines a new custom element and registers it. -->
+		<script>
+			customElements.define('accordion-item', 
+				class extends HTMLElement {
+					constructor() {
+						super(); 
+
+						const template = document.getElementById('accordion-template');
+						this.attachShadow({mode: 'open'}).appendChild(
+							template.content.cloneNode(true)
+						);
+					}
+				}
+			);
+		</script>
+	</head>
+	<body>
+		<template id="accordion-template">
+			<div class="accordion">
+				<button class="accordion-title" onclick="ToggleOpen(this)">
+					<slot name="title">Failed to load accordion title!</slot>
+					<span style="color: white; padding-left: 5px">▼</span>
+				</button>
+				<div class="accordion-content accordion-hidden">
+				<!-- This was used to the accordion animating using GreenSocks. -->
+				<!-- <div class="accordion-content accordion-hidden" style="height: 0;"> -->
+					<slot name="content">Failed to load accordion content!</slot>
+				</div>
+			</div>
+
+			<script>
+				function ToggleOpen(element) {
+					let accordionContent = element.parentNode.querySelector(".accordion-content");
+					let isContentNowHidden = accordionContent.classList.toggle("accordion-hidden");
+
+					// SetHeight(accordionContent);
+				}
+
+				function SetHeight(accordionContent) {
+
+					if(accordionContent.classList.contains("accordion-hidden")) {
+						gsap.to(accordionContent, {duration: 0.3, height: 0});
+					}
+					else {
+						gsap.to(accordionContent, {duration: 0.3, height: accordionContent.scrollHeight});
+
+						// Adapt size of all parent accordion contents as well.
+						// @TODO Get this working. 
+						// let parentAccordionItem = closestPassShadow(accordionContent.parentNode, ".accordion-content");
+						// console.log(parentAccordionItem);
+						// if(parentAccordionItem == null) {
+
+						// 	return; 
+						// }
+
+						// SetHeight(parentAccordionContent); 
+					}
+				}
+
+				// Source: https://stackoverflow.com/questions/54520554/custom-element-getrootnode-closest-function-crossing-multiple-parent-shadowd
+				function closestPassShadow(node, selector) {
+
+					if (!node) {
+									return null;
+					}
+
+					if (node instanceof ShadowRoot) {
+									return this.closestPassShadow(node.host, selector);
+					}
+
+					if (node instanceof HTMLElement) {
+									if (node.matches(selector)) {
+													return node;
+									} else {
+													return this.closestPassShadow(node.parentNode, selector);
+									}
+					}
+
+					return this.closestPassShadow(node.parentNode, selector);
+				}
+			</script>
+
+			<style>
+				* {
+					box-sizing: inherit;
+					font-size: inherit;
+					margin: 0; 
+					padding: 0; 
+				}
+
+				button {
+					background-color: inherit;
+				} 
+
+				:host {
+					width: 100%;
+				}
+
+				.accordion {
+					width: 100%;
+					/* padding: 1rem;  */
+					background-color: rgb(185, 207, 175);
+					padding: 5px;
+				}
+
+				.accordion-title {
+					display: flex; 
+					flex-direction: row;
+					width: 100%;
+					text-align: left;
+					border-width: 0;
+					padding: 5px; 
+				}
+
+				.accordion-content {
+					background-color: #F8FFFB;
+					overflow: hidden;
+					margin: 0px;
+					padding: 10px;
+					/* height: auto; */
+					transition: margin 0.2s ease-in-out, padding 0.2s ease-in-out, opacity 0.7s ease-in;
+					overflow: hidden; 
+				}
+				.accordion-hidden {
+					height: 0; 
+					margin: 0px;
+					/* padding: 0px; */
+					opacity: 0;
+					transition: margin 0.2s ease-in-out, padding 0.2s ease-in-out, opacity 0.1s;
+				}
+			</style>
+		</template>
+
+		<div id="content">
+			<h1 style="text-align: center; margin-top: 30px;">Was passiert mit deinem Apfelbutzen im Komposthaufen?</h1>
+			
+			<div id="text-content" style="width: 100%;">
+				<p>Dein Apfelbutzen kommt auf den Komposthaufen und wird dort auf natürliche Weise zersetzt. Schon nach einem Jahr entsteht nährstoffreicher Humus, der im Garten genutzt werden kann als Erde und Dünger. <sup><a href="http://www.hswt.de/fileadmin/Dateien/Forschung/Wissenstransfer/Freizeitgartenbau/Dokumente/leitfaden-kompostierung_zfw_2014-04.pdf">Quelle</a></sup></p>
+				<!-- <accordion-item>
+					<span slot="title">Wie kann ich einen Kompost anlegen?</span>
+					<div slot="content">
+						<p></p>
+					</div>
+				</accordion-item> -->
+				<p>Im Vergleich zur Entsorgung über die Biotonne, ist die Kompostierung daheim mit weniger Aufwand verbunden. Es entfallen zum Beipiel der Transport mit Fahrzeugen, die maschinelle Verarbeitung in Anlagen. <sup><a href="https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/garten-freizeit/kompost-eigenkompostierung#unsere-tipps">Quelle</a></sup>
+				</p>
+
+				<p>Der Kompost sollte stets leicht feucht aber nicht schleimig sein und benötigt Sauerstoff. Ist das nicht gegeben, findet eine Verrottung unter Sauerstoffmangel statt, bei der vermehrt das Treibhausgas Methan freigesetzt wird. Außerdem kann es zu unangenehmen Gerüchen führen. <sup><a href="https://www.chemie.de/lexikon/Kompostierung.html">Quelle</a></sup>
+				</p>
+
+				<accordion-item>
+					<span slot="title">Welche Abfälle kann ich noch auf dem Komposthaufen entsorgen?</span>
+					<div slot="content">
+						<p>
+							Für eine hohe Qualität des Komposts und um Schadstoffe zu verhindern ist es wichtig darauf zu achten, was dem Komposthaufen hinzugefügt wird. Grundsätzlich können die meisten Gartenabfälle (Rasenschnitt, Gehölz, Laub, Reste  von Gartenpflanzen) auf den Komposthaufen, allerdings sollten keine Pflanzenreste mit Krankheiten auf den Komposthaufen. Zudem die meisten Gemüse- und Obstreste aus der Küche, allerdings keine Schalen von Südfrüchten wegen der oft genutzten Pestizide und keine gekochten Gemüsereste. Alle anderen Essensreste, darunter Fleisch, Fisch, gekochte Essensreste, Teigwaren, Brot und alles andere, sollten nicht auf den Komposthaufen. Hier besteht unter anderem die Gefahr von der Vermehrung von Ratten. Eine ausführlichere Übersicht kann man hier finden. <sup><a href="http://www.hswt.de/fileadmin/Dateien/Forschung/Wissenstransfer/Freizeitgartenbau/Dokumente/leitfaden-kompostierung_zfw_2014-04.pdf">Quelle</a></sup>
+						</p>
+					</div>
+				</accordion-item>
+
+				<p>Eine <a href="https://www.youtube.com/watch?v=6MJS-q7L20c">Wurmkiste</a> kann ebenfalls zur Kompostierung genutzt werden und bietet den Vorteil, dass sie auf Balkonen oder im Haus aufgestellt werden kann. <sup><a href="https://www.umweltbundesamt.de/umwelttipps-fuer-den-alltag/garten-freizeit/kompost-eigenkompostierung#unsere-tipps">Quelle</a></sup>
+				</p>
+			</div>
+		</div>
+	</body>
+</html>
